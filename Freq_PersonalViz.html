@@ -2,10 +2,10 @@
 <meta charset="utf-8">
 <html lang="en" xmlns:xlink="http://www.w3.org/1999/xlink"> 
 <head>
- <link rel="stylesheet" href="style.css" />
+ <link rel="stylesheet" href="css/style.css" />
  <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
 <script type="text/javascript" src="http://d3js.org/d3.v3.min.js"></script>
-<script type="text/javascript" src="script.js"></script>
+<script type="text/javascript" src="javascript/script.js"></script>
 <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
@@ -239,15 +239,16 @@ text.axis-worktime {
         fill: #210B61;
       }
     
-#Menu{
+ul{
     list-style-type: none;
     margin-left: 0px;
     margin-right: 0px;
     padding: 0px;
     overflow: hidden;
-    background-color: #111;
+    background-color: #333;
 }
-#Menu2,#Menu3,#Menu4,#Menu5,#Menu6 {
+
+li {
     float: left;
     margin-left: 50px;
     margin-right: 50px;
@@ -255,25 +256,21 @@ text.axis-worktime {
 
 li a {
     display: block;
-    position: inherit;
-    font-size: 24px;
-    line-height: 50px;
-    padding: 6px 70px;
-    color: #F6CEEC;
-    font-weight: bold;
-    font-family: "Georgia";
-    margin: -10px -10px -10px -10px;
+    color: white;
     text-align: center;
+    padding: 6px 60px;
+    text-decoration: none;
 }
 
 li a:hover:not(.active) {
-    background-color: grey;
+    background-color: lightgrey;
 }
 
 .active {
-    background-color:#4CAF50;
+    background-color: #4CAF50;
 }
- 
+
+
     
 body {
     
@@ -309,7 +306,7 @@ text {
     
    
 h1 {
-	margin: 15px 500px 0px 500px;
+	margin: 0px 00px 0px 000px;
 	position: auto;
 	font-size: 32px;
 	line-height: 40px;
@@ -391,19 +388,38 @@ h3{
    
 #tooltip{
       display : none;
-     position: absolute;			
-    text-align: justify;			
-    width: 100px;					
-    height: 50px;					
-    padding: 2px;				
-    font: 16px sans-serif;		
-    background: lightyellow;	
-    border: 1px black;		
-    border-radius: 8px;			
+     position: absolute;      
+    text-align: center;     
+    width: auto;          
+    height: 45px;         
+    padding: 2px;       
+    font: 12px sans-serif;    
+    background: lightsteelblue; 
+    border: 0px;    
+    border-radius: 8px;     
     pointer-events: none;
-    color: black;
 
 }
+
+#tipname{
+            color: black;
+            font-weight: bold;
+            display: block;
+            font-size: 20;
+}
+
+#tipgdp{
+            color: brown;
+            font-weight: bold;
+            display: block ;
+}
+
+#tipapp{
+            color: brown;
+            font-weight: bold;
+            display: block ;
+}
+ 
 
 #viz{
     
@@ -422,35 +438,6 @@ h3{
 
 
 
-ul {
-  list-style:decimal;
-  font-size: 0px;
-  padding: 0;
-  margin-top: 0px;
-  margin-left: 0px;
-  border: 1px;
-}
-
-li {
-  cursor: pointer;
-  padding-bottom: 5px;
-  color: #210B61;
-}
-
-li:hover {
-    color: orange;
-    text-decoration: underline;
-
-}
-
-li.preview {
-  font-weight: 400;
-}
-
-li.selected {
-  font-weight: bold;
-   color: red;
-}
 
 
 
@@ -468,13 +455,13 @@ li.selected {
   </div>
  
    
-  <ul id ="Menu">
-  <li  id ="Menu4" ><a href="viz_finalproj.html">Compare</a></li> 
-  <li id ="Menu5" ><a class="active" href="#">Frequency</a></li>
-  <li id ="Menu6" ><a href="sections.html">Sections</a></li>
- <li id ="Menu2" ><a href="index1.html">HeatMap</a></li>
-    </ul>
-
+  <ul>
+  <li><a href="index.html">Compare</a></li> 
+   <li><a href="sections.html">Sections</a></li>
+  <li><a  class="active" href="Freq_PersonalViz.html">Frequency</a></li>
+ 
+  <li><a  href="index1.html">HeatMap</a></li>
+</ul>
 			<div id="title" style="height:25%;">
 				<h1>Personal Vis: Frequency graph</h1>
 			</div>
@@ -495,70 +482,6 @@ li.selected {
     <input type="radio" name="range"  value="6" onclick="update()">31-40 Activities<br>
     <input type="radio" name="range"  value="7" onclick="update()">41-61 Activities<br>
     <input type="radio" name="range"  value="8" onclick="update()">62-101 Activities<br><br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
 
     </div>
     <div id="about">    
