@@ -3,14 +3,17 @@
 **Asha Mandot (ajm832)**  
 **Aditya Varma Konda (avk287)**  
 
-![noimg](https://github.com/nyu-cs6313-fall2015/Group-1/blob/master/Screenshot_1.png)
+![noimg](https://github.com/nyu-cs6313-fall2015/Group-1/blob/master/Screenshot_1.png)  
+![3](https://github.com/nyu-cs6313-fall2015/Group-1/blob/master/Screenshot_2.png)  
 
 ## Description
 
   To build a visualization system that gives the user a sense of his/her behavior. 
 This personal viz is for all users that use a computing device for their day to day activities. To help the users analyze what tasks and activities they perform during the day/s and for how long.To deduce their work patterns, compare their activities across days/hours.
 
-   Personal Viz uses the data that will consist of activities that a user will carry out on his/her computing device throughout the day. The data is collected from the InputLog (desktop application) and RescueTime(API) from all the project Team members and Professor.
+   Personal Viz uses the data that will consist of activities that a user will carry out on his/her computing device throughout the day. The data is collected from the InputLog (desktop application) and RescueTime(API) from all the project Team members and Professor.  
+     
+   ![2](https://github.com/nyu-cs6313-fall2015/Group-1/blob/master/Screenshot_3.png)  
 
 ### Limitations and Future Works:
 
