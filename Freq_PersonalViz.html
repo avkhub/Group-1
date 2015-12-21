@@ -279,6 +279,7 @@ body {
     font-size: 16px;
     text-align: center;
     background-color: white;
+    zoom: 100%;
 }
 
 
@@ -335,6 +336,7 @@ circle{
     border-left: 5px solid #29088A;
     border-right: 5px solid #29088A;
     position: auto;
+    padding: 20px;
     text-align: justify;
     font-size: 16px;
     font-weight: bold;
@@ -344,7 +346,6 @@ circle{
 .right-div {
     float: :right;
     margin-left: 325px;
-    border-top: 5px solid #29088A;
     /*border-left: 5px solid #29088A; */
      /*border-right: 5px solid #29088A;*/
     position: auto;
@@ -459,7 +460,6 @@ h3{
   <li><a href="index.html">Compare</a></li> 
    <li><a href="sections.html">Sections</a></li>
   <li><a  class="active" href="Freq_PersonalViz.html">Frequency</a></li>
- 
   <li><a  href="index1.html">HeatMap</a></li>
 </ul>
 			<div id="title" style="height:25%;">
@@ -472,7 +472,7 @@ h3{
     <br> <br>
     <div class= "left-div"><br>
     <p id ="x"><strong>Ever wonder how many activities <br>you do simultaneously in an hour? <br> Or which hours of the day you <br>usually spend multitasking ? <br> Know your frequency trends here </strong></p><br>
-    <h3>Select a Frequency Range you wish to visualize</h3><br>
+    <h3>Select a Frequency Range:</h3><br>
     <div id="list">
     <input type="radio" name="range" value="1" onclick="update()" checked="checked">0-5 Activities<br>
     <input type="radio" name="range"  value="2" onclick="update()">6-10 Activities<br>
@@ -488,7 +488,7 @@ h3{
         <br>
     </div></div>
 <div class = "divider"></div>
-    <div class= "right-div"><h2><u>Visualization:</u></h2><br><svg id="viz" preserveAspectRatio="xMinYMin"></svg></div>
+    <div class= "right-div"><svg id="viz" preserveAspectRatio="xMinYMin"></svg></div>
 <div id = "Info"></div>
 </div>
 
