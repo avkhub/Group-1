@@ -1,5 +1,6 @@
 # PersonalViz
 
-# Links
+#
+3 Links
 
-	live demo can be found here <a href="http://nyu-cs6313-fall2015.github.io/Group-1/">DEMO<a>
+	A live demo can be found here [Personal Viz Demo](http://nyu-cs6313-fall2015.github.io/Group-1/)
