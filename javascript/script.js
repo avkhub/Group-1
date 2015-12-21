@@ -8,7 +8,8 @@ window.onload = function() {
     // Add the current month on load
 
     createMonth();
-    heatmap();
+
+    heatmap(date.getMonth()+1);
 };
 
 document.onkeydown = function(evt) {
@@ -74,7 +75,8 @@ function previousMonth() {
     // clearCalendar();
     date.setMonth(date.getMonth() - 1);
     createMonth(date.getMonth());
-    heatmap(date.getMonth()-1);
+    
+    heatmap(date.getMonth()+1);
 }
 
 // Creates and populates all of the days to make up the month
@@ -101,9 +103,10 @@ function createMonth() {
     getCurrentDay();
 
 }
-function heatmap(){
-
-
+function heatmap(monthcheck){
+      jQuery('#chart').html('');
+     
+      console.log(monthcheck);
       var margin = { top: 15, right: 0, bottom: 60, left: 180 },
           width = 2000 - margin.left - margin.right,
           height = 490 - margin.top - margin.bottom,
@@ -143,20 +146,26 @@ function heatmap(){
             .attr("transform", "translate(" + gridSize / 2 + ", -6)")
             .attr("class", "timeLabel mono axis axis-worktime");
 
-      var heatmapChart = function(tsvFile) {
 
-        d3.tsv(tsvFile,
-        function(d) {         
+      
+    
+      var heatmapChart = function(tsvFile) {
+        var data;  
+        data = d3.tsv(tsvFile,
+        function(d) {  
+          
           return {
          
             day: +d.day,
             hour: +d.hour,           
             value: +d.value,
             dayname: d.dayname,
-            app: d.app
+            app: d.app,
+            month:+d.month
           };
         },
        
+
         function(error, data) {
           var colorScale = d3.scale.quantile()
               .domain([0,50,200,800, 1000, 1500,2000, 3000 , 3500])
@@ -249,17 +258,17 @@ function heatmap(){
 
       heatmapChart(datasets[0]);
       
-      var datasetpicker = d3.select("#dataset-picker").selectAll(".dataset-button")
-        .data(datasets);
+      // var datasetpicker = d3.select("#dataset-picker").selectAll(".dataset-button")
+      //   .data(datasets);
 
-      datasetpicker.enter()
-        .append("input")
-        .attr("value", function(d){ return "Dataset " + d })
-        .attr("type", "button")
-        .attr("class", "dataset-button")
-        .on("click", function(d) {
-          heatmapChart(d);
-        });
+      // datasetpicker.enter()
+      //   .append("input")
+      //   .attr("value", function(d){ return "Dataset " + d })
+      //   .attr("type", "button")
+      //   .attr("class", "dataset-button")
+      //   .on("click", function(d) {
+      //     heatmapChart(d);
+      //   });
 
       // d3.selectAll("svg > *").remove();
   

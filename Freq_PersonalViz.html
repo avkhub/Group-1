@@ -104,10 +104,12 @@ function dataload(result){
             
             scaleX.range([40, 780])
             scaleY.range([40, 600])
+            scaleR.range([0,12])
+
                         
             scaleX.domain([0, 30])
             scaleY.domain([24,0])
-                    
+            scaleR.domain([0, d3.max(data, function(d) { return d.frequency;})])      
             
     var axisX = d3.svg.axis().scale(scaleX).orient("bottom").ticks(30).tickSize(-560, 0, 0).tickFormat(function(d) { return d + 1; });
           
@@ -123,9 +125,9 @@ function dataload(result){
             selection.enter() 
                      .append("circle") 
                      .attr({
-                    r: function (d) {if(d.frequency >21) {return scaleR(d.frequency/3);} else {return scaleR(d.frequency);} } ,
+                    r: function (d) {if(d.frequency >21) {return scaleR(d.frequency);} else {return scaleR(d.frequency);} } ,
                     cx: function(d) { return scaleX(d.day -0.5 ) },
-                    cy: function(d) { return scaleY(d.hour -0.001) }
+                    cy: function(d) { return scaleY(d.hour - 0.5 + 1 ) }
                 }) 
             
                     .on('mouseover',function(d){
@@ -134,7 +136,8 @@ function dataload(result){
                             tool.select("#tipname").text("Day:"+d.day);
                             tool.select("#tipgdp").text("Hour:"+d.hour+" Frequency:"+d.frequency);
                                                         
-                        
+            
+
                 tool.transition()        
                     .duration(200)      
                     .style("opacity", .9) 
@@ -176,7 +179,7 @@ function dataload(result){
                             })
                             
                               d3.select(this).style({
-                                'fill': 'red', 
+                                'fill': '#008080', 
                                 'opacity': '0.9'
                         })
                         })
@@ -318,7 +321,7 @@ h1 {
 } 
     
 circle{
-                fill: red; 
+                fill: #008080; 
                 opacity: 0.9;
             }
 .domain {
@@ -484,7 +487,7 @@ li.selected {
     <p id ="x"><strong>Ever wonder how many activities <br>you do simultaneously in an hour? <br> Or which hours of the day you <br>usually spend multitasking ? <br> Know your frequency trends here </strong></p><br>
     <h3>Select a Frequency Range you wish to visualize</h3><br>
     <div id="list">
-    <input type="radio" name="range" value="1" onclick="update()">0-5 Activities<br>
+    <input type="radio" name="range" value="1" onclick="update()" checked="checked">0-5 Activities<br>
     <input type="radio" name="range"  value="2" onclick="update()">6-10 Activities<br>
     <input type="radio" name="range" value="3" onclick="update()">11-16 Activities <br>
     <input type="radio" name="range"  value="4" onclick="update()">17-21 Activities<br>
