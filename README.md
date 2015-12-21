@@ -3,7 +3,7 @@
 **Asha Mandot (ajm832)**  
 **Aditya Varma Konda (avk287)**  
 
-![noimg]({{site.baseurl}}//Screenshot_1.png)
+![noimg](https://github.com/nyu-cs6313-fall2015/Group-1/blob/master/Screenshot_1.png)
 
 ## Description
 
@@ -14,9 +14,10 @@ This personal viz is for all users that use a computing device for their day to 
 
 ### Limitations and Future Works:
 
-Limited Data (few months) and hence couldn’t visualize trends for all months. 	Future work  - feeding (collect data) in more data into application. 
-Future work - adding a new feature in the application - for the user should be able 				   to feed his data into application through user interface.
-Future work - make use if more metrics like “keyboard strokes” , “mouse focus” from 				   different data collecting applications.
+Limited Data (few months) and hence couldn’t visualize trends for all months.   
+Future work  - feeding (collect data) in more data into application.  
+Future work - adding a new feature in the application - for the user should be able to feed his data into application through user interface.  
+Future work - make use if more metrics like “keyboard strokes” , “mouse focus” from different data collecting applications.  
 
 
 
