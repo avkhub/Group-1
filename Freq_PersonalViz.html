@@ -1,0 +1,573 @@
+<!DOCTYPE html>
+<meta charset="utf-8">
+<html lang="en" xmlns:xlink="http://www.w3.org/1999/xlink"> 
+<head>
+ <link rel="stylesheet" href="style.css" />
+ <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
+<script type="text/javascript" src="http://d3js.org/d3.v3.min.js"></script>
+<script type="text/javascript" src="script.js"></script>
+<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>Personal Vis</title>
+  <meta name="description" content="The HTML5 Herald">
+  <meta name="author" content="SitePoint">
+</head>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/d3/3.5.6/d3.min.js" charset="utf-8"></script>
+<script>
+
+var data;
+var key=1;
+d3.csv("data/ashacsvfile.csv", function(result){
+            dataload(result);
+            }
+          )
+    
+function dataload(result){
+
+    data = result.map(function(d){
+                return {
+                    month: d.month,
+                    day : d.day,
+                    hour: d.hour,
+                    frequency: d.frequency
+                    
+                       }
+                    })
+    
+ 
+        data.sort(function(a,b){
+                               return d3.descending(a.frequency, b.frequency);
+                             })
+        console.log(data);
+   refresh(data);  
+}
+
+ function update(){
+    key=d3.select('input[name="range"]:checked').node().value;
+    console.log(key);
+    refresh(data);
+    return key;
+}
+    function refresh(data){  
+
+            d3.select("#viz").attr("width", 880);
+            d3.select("#viz").attr("height", 900);
+            d3.select("#viz").attr("align","right");
+    
+            var scaleX = d3.scale.linear();
+            var scaleY = d3.scale.linear();
+            var scaleR = d3.scale.linear();
+
+                             
+        var svg = d3.select("#viz"); 
+        svg.selectAll("*").remove();
+         console.log(key);
+        var data = data.filter(function(d) {
+                if(key == 1 ) 
+                {return d.frequency<6 ;}
+
+                else if(key == 2)
+                {if(d.frequency>=5 && d.frequency<=10) 
+                        {return d.frequency;}
+                }     
+
+                else if(key == 3)
+                {if(d.frequency>=11 && d.frequency<=16) 
+                        {return d.frequency;}
+                } 
+
+                else if(key == 4)
+                {if(d.frequency>=17 && d.frequency<=21) 
+                        {return d.frequency;}
+                } 
+                else if(key == 5)
+                {if(d.frequency>=22 && d.frequency<=30) 
+                        {return d.frequency;}
+                } 
+                else if(key == 6)
+                {if(d.frequency>=31 && d.frequency<=40) 
+                        {return d.frequency;}
+                } 
+                else if(key == 7)
+                {if(d.frequency>=41 && d.frequency<=61) 
+                        {return d.frequency;}
+                } 
+                else if(key == 8)
+                {if(d.frequency>=62 && d.frequency<=101) 
+                        {return d.frequency;}
+                }
+
+                else {return d.frequency;}
+});
+        
+            
+            scaleX.range([40, 780])
+            scaleY.range([40, 600])
+                        
+            scaleX.domain([0, 30])
+            scaleY.domain([24,0])
+                    
+            
+    var axisX = d3.svg.axis().scale(scaleX).orient("bottom").ticks(30).tickSize(-560, 0, 0).tickFormat(function(d) { return d + 1; });
+          
+    var axisY = d3.svg.axis().scale(scaleY).orient("left").ticks(24).tickSize(-740, 0, 0);
+
+           
+            
+                var selection = d3.select("#viz") 
+                .selectAll("circle") 
+                .data(data, function(d,i) { return i+"."+d.frequency; }); 
+            
+            
+            selection.enter() 
+                     .append("circle") 
+                     .attr({
+                    r: function (d) {if(d.frequency >21) {return scaleR(d.frequency/3);} else {return scaleR(d.frequency);} } ,
+                    cx: function(d) { return scaleX(d.day -0.5 ) },
+                    cy: function(d) { return scaleY(d.hour -0.001) }
+                }) 
+            
+                    .on('mouseover',function(d){
+            
+                            var tool = d3.select("#tooltip").attr("class", "tooltip").style("opacity", 0);
+                            tool.select("#tipname").text("Day:"+d.day);
+                            tool.select("#tipgdp").text("Hour:"+d.hour+" Frequency:"+d.frequency);
+                                                        
+                        
+                tool.transition()        
+                    .duration(200)      
+                    .style("opacity", .9) 
+                    .style("left", (d3.event.pageX) + "px")     
+                    .style("top", (d3.event.pageY - 28) + "px");    
+                            
+                                var matrix = this.getScreenCTM()
+                                .translate(+ this.getAttribute("cx"), + this.getAttribute("cy"));
+                
+                            tool.style({
+                                'display' : 'block', 
+                                'opacity' : '0.9',
+                                'position' : 'auto',
+                                'cursor' : 'pointer',
+                                'top' : (window.pageYOffset + matrix.f - 30)+1,
+                                'left': (window.pageXOffset + matrix.e + 15)+1
+                            })
+ 
+                            d3.select(this).style({
+                                'fill': 'blue',
+                                'opacity': '0.6',
+                                'cursor': 'pointer'
+                        })
+                            
+            })
+            
+                    .on('mouseout',function(){
+                          d3.select(this)
+                            //    .attr('r',5);
+                
+                            var tool = d3.select("#tooltip").attr("class", "tooltip").style("opacity", 0);
+                
+                            tool.transition()        
+                            .duration(500)      
+                            .style("opacity", 0.9); 
+                
+                            tool.style({
+                                    'display' : 'none' 
+                            })
+                            
+                              d3.select(this).style({
+                                'fill': 'red', 
+                                'opacity': '0.9'
+                        })
+                        })
+                    d3.select("#viz").append("g")
+                        .attr("class", "grid")
+                        //.attr("class", "x label")
+                        .attr("transform","translate(0,600)")
+                        .call(axisX)
+          
+                    
+                 d3.select("#viz").append("text")      
+                    .attr("x", 430 )
+                    .attr("y",  650 )
+                    .style("text-anchor", "middle")
+                    .text("Days in a month (1 - 31 Days)");
+                    
+                    d3.select("#viz").append("g")
+                        .attr("class", "grid")
+                        .attr("transform","translate(40,0)")
+                        .call(axisY)
+                    
+        d3.select("#viz").append("text")
+        .attr("transform", "rotate(-90)")
+        .attr("y", -5)
+        .attr("x", -250)
+        .attr("dy", "1em")
+        .style("text-anchor", "middle")
+        .text("Hours in a Day (0 - 24)");
+        }
+
+
+
+</script>
+<style>
+
+#list{
+
+    text-align: left;
+    margin-left: 60px;
+    font-size: 16px;
+    font-style: italic;
+}
+
+rect.bordered {
+        stroke: #E6E6E6;
+        stroke-width:2px;   
+      }
+text.mono {
+        font-size: 9pt;
+        font-family: Consolas, courier;
+        fill: #210B61;
+      }
+text.axis-workweek {
+        fill: #210B61;
+      }
+text.axis-worktime {
+        fill: #210B61;
+      }
+    
+#Menu{
+    list-style-type: none;
+    margin-left: 0px;
+    margin-right: 0px;
+    padding: 0px;
+    overflow: hidden;
+    background-color: #111;
+}
+#Menu2,#Menu3,#Menu4,#Menu5,#Menu6 {
+    float: left;
+    margin-left: 50px;
+    margin-right: 50px;
+}
+
+li a {
+    display: block;
+    position: inherit;
+    font-size: 24px;
+    line-height: 50px;
+    padding: 6px 70px;
+    color: #F6CEEC;
+    font-weight: bold;
+    font-family: "Georgia";
+    margin: -10px -10px -10px -10px;
+    text-align: center;
+}
+
+li a:hover:not(.active) {
+    background-color: grey;
+}
+
+.active {
+    background-color:#4CAF50;
+}
+ 
+    
+body {
+    
+    font-family: "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;
+    color: #333;
+    font-size: 16px;
+    text-align: center;
+    background-color: white;
+}
+
+
+.axis text {
+  font: 10px sans-serif;
+}
+
+#x{
+    font-weight:bold;color:#29088A;word-spacing:1pt;font-size:16px;font-family:sans-serif;line-height:1;position: auto; text-align: center; 
+
+}
+
+text {
+    color: #210B61;
+}
+
+.text {
+    fill: #210B61;
+}
+
+.text {
+   font: 10px sans-serif;
+    color:#210B61;
+}
+    
+   
+h1 {
+	margin: 15px 500px 0px 500px;
+	position: auto;
+	font-size: 32px;
+	line-height: 40px;
+	background: Black;
+	padding: 5px 50px;
+	color: white;
+	font-weight: bold;
+    font-family: "Georgia";
+} 
+    
+circle{
+                fill: red; 
+                opacity: 0.9;
+            }
+.domain {
+            fill : #210B61;
+            stroke : #210B61;
+            shape-rendering : crispEdges;
+   }
+    
+.left-div {
+    float: left;
+    margin-right: 100px;
+   border-top: 5px solid #29088A;
+    border-bottom: 5px solid #29088A;
+    border-left: 5px solid #29088A;
+    border-right: 5px solid #29088A;
+    position: auto;
+    text-align: justify;
+    font-size: 16px;
+    font-weight: bold;
+    color: #29088A;
+
+}
+.right-div {
+    float: :right;
+    margin-left: 325px;
+    border-top: 5px solid #29088A;
+    /*border-left: 5px solid #29088A; */
+     /*border-right: 5px solid #29088A;*/
+    position: auto;
+}
+.grid {
+    stroke: #210B61;
+    opacity: 0.6;
+      display: block;
+    
+}
+.tick{
+     stroke: #210B61;
+    opacity: 0.6;
+      display: block;
+    
+}
+.grid path {
+    stroke-width: 0;
+    stroke: #210B61;
+    opacity: 0.5;
+  
+}
+    
+    
+h2{
+    font-weight: bold;
+	position: auto;
+	font-size: 28px;
+    font-family: "Georgia";
+    color: #045FB4;
+}
+
+h3{
+    position: auto;
+	font-size: 18px;
+    font-family: 'Muli', sans-serif;
+    text-decoration: underline;
+    color: #29088A;
+    
+}
+   
+#tooltip{
+      display : none;
+     position: absolute;			
+    text-align: justify;			
+    width: 100px;					
+    height: 50px;					
+    padding: 2px;				
+    font: 16px sans-serif;		
+    background: lightyellow;	
+    border: 1px black;		
+    border-radius: 8px;			
+    pointer-events: none;
+    color: black;
+
+}
+
+#viz{
+    
+    position: inherit;
+    color: #210B61;
+}
+
+
+#about {
+  position: relative;
+  top: 10px;
+  left: 20px;
+  width: 250px;
+  font-size: 14px;
+}
+
+
+
+ul {
+  list-style:decimal;
+  font-size: 0px;
+  padding: 0;
+  margin-top: 0px;
+  margin-left: 0px;
+  border: 1px;
+}
+
+li {
+  cursor: pointer;
+  padding-bottom: 5px;
+  color: #210B61;
+}
+
+li:hover {
+    color: orange;
+    text-decoration: underline;
+
+}
+
+li.preview {
+  font-weight: 400;
+}
+
+li.selected {
+  font-weight: bold;
+   color: red;
+}
+
+
+
+
+</style>
+ 
+<body>
+<div style="width:100%;">
+<div class="container">
+        <div class="controls">
+            <p class="next label" onclick="nextMonth()"><i class="fa fa-arrow-right"></i></p>
+            <p class="previous label" onclick="previousMonth()"><i class="fa fa-arrow-left"></i></p>
+            <p id="current-month" class="label bold">January</p>
+        </div>      
+  </div>
+ 
+   
+  <ul id ="Menu">
+  <li  id ="Menu4" ><a href="viz_finalproj.html">Compare</a></li> 
+  <li id ="Menu5" ><a class="active" href="#">Frequency</a></li>
+  <li id ="Menu6" ><a href="sections.html">Sections</a></li>
+ <li id ="Menu2" ><a href="index1.html">HeatMap</a></li>
+    </ul>
+
+			<div id="title" style="height:25%;">
+				<h1>Personal Vis: Frequency graph</h1>
+			</div>
+<div id = "tooltip">
+    <span id = "tipname"></span>
+    <span id = "tipgdp"></span>
+</div>
+    <br> <br>
+    <div class= "left-div"><br>
+    <p id ="x"><strong>Ever wonder how many activities <br>you do simultaneously in an hour? <br> Or which hours of the day you <br>usually spend multitasking ? <br> Know your frequency trends here </strong></p><br>
+    <h3>Select a Frequency Range you wish to visualize</h3><br>
+    <div id="list">
+    <input type="radio" name="range" value="1" onclick="update()">0-5 Activities<br>
+    <input type="radio" name="range"  value="2" onclick="update()">6-10 Activities<br>
+    <input type="radio" name="range" value="3" onclick="update()">11-16 Activities <br>
+    <input type="radio" name="range"  value="4" onclick="update()">17-21 Activities<br>
+    <input type="radio" name="range"  value="5" onclick="update()">22-30 Activities<br>
+    <input type="radio" name="range"  value="6" onclick="update()">31-40 Activities<br>
+    <input type="radio" name="range"  value="7" onclick="update()">41-61 Activities<br>
+    <input type="radio" name="range"  value="8" onclick="update()">62-101 Activities<br><br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+
+    </div>
+    <div id="about">    
+        <br>
+    </div></div>
+<div class = "divider"></div>
+    <div class= "right-div"><h2><u>Visualization:</u></h2><br><svg id="viz" preserveAspectRatio="xMinYMin"></svg></div>
+<div id = "Info"></div>
+</div>
+
+</body>
+    
+</html>
+
+
