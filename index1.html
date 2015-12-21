@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<meta charset="utf-8">
+<html>
+<head>
+<style>
+body{
+    zoom : 125% ;
+    background-color: white;
+}
+rect.bordered {
+        stroke: #E6E6E6;
+        stroke-width:2px;   
+      }
+
+      text.mono {
+        font-size: 9pt;
+        font-family: Consolas, courier;
+        fill: #666;
+      }
+
+      text.axis-workweek {
+        fill: #666;
+      }
+
+      text.axis-worktime {
+        fill: #666;
+      }
+h1 {
+	margin: -10px -10px -10px -10px;
+	position: auto;
+	font-size: 30px;
+	line-height: 30px;
+	background: black;
+	padding: 5px 15px;
+	color: white;
+	font-weight: bold;
+    font-family: "Georgia";
+}
+    
+ul{
+    list-style-type: none;
+    margin-left: 0px;
+    margin-right: 0px;
+    padding: 0px;
+    overflow: hidden;
+    background-color: #333;
+}
+
+li {
+    float: left;
+    margin-left: 50px;
+    margin-right: 50px;
+}
+
+li a {
+    display: block;
+    color: white;
+    text-align: center;
+    padding: 6px 60px;
+    text-decoration: none;
+}
+
+li a:hover:not(.active) {
+    background-color: lightgrey;
+}
+
+.active {
+    background-color: #4CAF50;
+}
+ 
+#tooltip{
+      display : none;
+     position: absolute;      
+    text-align: center;     
+    width: auto;          
+    height: 45px;         
+    padding: 2px;       
+    font: 12px sans-serif;    
+    background: lightsteelblue; 
+    border: 0px;    
+    border-radius: 8px;     
+    pointer-events: none;
+
+}
+
+#tipname{
+            color: black;
+            font-weight: bold;
+            display: block;
+            font-size: 20;
+}
+
+#tipgdp{
+            color: brown;
+            font-weight: bold;
+            display: block ;
+}
+
+#tipapp{
+            color: brown;
+            font-weight: bold;
+            display: block ;
+}
+ 
+
+ 
+ <div>
+        <div>
+            <p><i></i></p>
+            <p><i></i></p>
+            <p id="current-month">January</p>
+        </div>
+<br>
+  </div>
+
+<p></p><ul>
+  <li><a href="index.html">HeatMap</a></li>
+<p></p>
+  <li><a href="viz_finalproj.html">Compare</a></li> 
+  <li><a href="#asha">Frequency</a></li>
+  <li><a href="#login">Sections</a></li>
+
+<p></p>
+</ul>
+
+<div id="tooltip">
+    US
+    2133
+    wow
+</div>
+
+<p></p><div id="chart"></div>
+
+<pre><code>&lt;div id="dataset-picker"&gt;
+   &lt;ul id="list"&gt;&lt;/ul&gt;   
+&lt;/div&gt;
+
+
+&lt;script type="text/javascript"&gt;   
+&lt;/script&gt;
+</code></pre>
+
+<p>
+</p>
+
+  </body>
+</style>
+ <link rel="stylesheet" href="css/style.css" />
+ <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
+<script type="text/javascript" src="http://d3js.org/d3.v3.min.js"></script>
+<script type="text/javascript" src="javascript/script.js"></script>
+<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+
+</head>
+<body>
+ <div class="container">
+        <div class="controls">
+            <p class="next label" onclick="nextMonth()"><i class="fa fa-arrow-right"></i></p>
+            <p class="previous label" onclick="previousMonth()"><i class="fa fa-arrow-left"></i></p>
+            <p id="current-month" class="label bold">January</p>
+        </div>      
+  </div>
+ 
+   
+  <ul>
+  <li><a href="index.html">Compare</a></li> 
+  <li><a href="#asha">Frequency</a></li>
+  <li><a href="sections.html">Sections</a></li>
+  <li><a class="active" href="index1.html">HeatMap</a></li>
+</ul>
+    <div id="title" style="height:25%;">
+				<h1>Heatmap: Total System Usage</h1>
+     </div>
+<div id = "tooltip">
+    <span id = "tipname">US</span>
+    <span id = "tipgdp">2133</span>
+    <span id = "tipapp">wow</span>
+</div>
+<br>
+  <div id="chart"></div>
+
+    <div id="dataset-picker">
+       <ul id="list"></ul>   
+    </div>
+  
+
+    <script type="text/javascript">   
+    </script>
+</body>
+</html>
