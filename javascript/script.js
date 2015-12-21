@@ -247,7 +247,7 @@ function heatmap(monthcheck){
 
           legend.append("text")
             .attr("class", "mono")
-            .text(function(d) { return "> " + Math.round(d/60); })
+            .text(function(d) { return "> " + Math.round(d/60) + "min"; })
             .attr("x", function(d, i) { return legendElementWidth * i; })
             .attr("y", height + gridSize);
 
