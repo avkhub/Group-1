@@ -207,7 +207,7 @@ function heatmap(monthcheck){
                                 'opacity' : '0.9',
                                 'position' : 'auto',
                                 'cursor' : 'pointer',
-                                'top' : (window.pageYOffset + matrix.f - 30)+2,//d3.select(this).attr("cy")+1,
+                                'top' : (window.pageYOffset + matrix.f - 25)+2,//d3.select(this).attr("cy")+1,
                                 'left': (window.pageXOffset + matrix.e + 15)+2//d3.select(this).attr("cx")+1
                             })
  
